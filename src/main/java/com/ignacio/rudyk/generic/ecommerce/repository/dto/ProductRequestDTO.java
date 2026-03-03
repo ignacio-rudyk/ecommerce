@@ -1,4 +1,4 @@
-package com.ignacio.rudyk.ecommerce.repository.dto;
+package com.ignacio.rudyk.generic.ecommerce.repository.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

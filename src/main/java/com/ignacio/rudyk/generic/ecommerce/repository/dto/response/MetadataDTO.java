@@ -1,4 +1,4 @@
-package com.ignacio.rudyk.ecommerce.repository.dto.response;
+package com.ignacio.rudyk.generic.ecommerce.repository.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.HttpStatus;

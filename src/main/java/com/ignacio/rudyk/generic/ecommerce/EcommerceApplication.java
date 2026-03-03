@@ -1,4 +1,4 @@
-package main.java.com.ignacio.rudyk.ecommerce;
+package com.ignacio.rudyk.generic.ecommerce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

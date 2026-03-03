@@ -1,7 +1,8 @@
-package com.ignacio.rudyk.ecommerce.repository.dto.response;
+package com.ignacio.rudyk.generic.ecommerce.repository.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResponseDTO {
@@ -14,6 +15,12 @@ public class ResponseDTO {
 
     @JsonProperty("errorList")
     private List<ErrorDTO> errorList;
+
+    public ResponseDTO() {
+        this.metadata = null;
+        this.data = null;
+        this.errorList = new ArrayList<>();
+    }
 
     public ResponseDTO(MetadataDTO metadata, Object data, List<ErrorDTO> errorList) {
         this.metadata = metadata;

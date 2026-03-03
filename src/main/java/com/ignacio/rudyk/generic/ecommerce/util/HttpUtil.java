@@ -1,7 +1,7 @@
-package com.ignacio.rudyk.ecommerce.util;
+package com.ignacio.rudyk.generic.ecommerce.util;
 
-import com.ignacio.rudyk.ecommerce.repository.dto.response.MetadataDTO;
-import com.ignacio.rudyk.ecommerce.repository.dto.response.ResponseDTO;
+import com.ignacio.rudyk.generic.ecommerce.repository.dto.response.MetadataDTO;
+import com.ignacio.rudyk.generic.ecommerce.repository.dto.response.ResponseDTO;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 
