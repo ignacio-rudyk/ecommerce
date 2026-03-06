@@ -4,6 +4,7 @@ import com.ignacio.rudyk.generic.ecommerce.repository.dto.ProductRequestDTO;
 import com.ignacio.rudyk.generic.ecommerce.repository.dto.response.ResponseDTO;
 import com.ignacio.rudyk.generic.ecommerce.util.HttpUtil;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     @PostMapping
-    public ResponseDTO createProduct(@RequestBody ProductRequestDTO productRequest, HttpRequest httpRequest) {
-        return HttpUtil.isSucceful2xxResponse(httpRequest, null);
+    public ResponseEntity<ResponseDTO> createProduct(@RequestBody ProductRequestDTO productRequest, HttpRequest httpRequest) {
+        return ResponseEntity.ok(new ResponseDTO());
     }
 
 }
