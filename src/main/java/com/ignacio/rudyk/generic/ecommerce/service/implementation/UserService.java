@@ -3,9 +3,10 @@ package com.ignacio.rudyk.generic.ecommerce.service.implementation;
 import com.ignacio.rudyk.generic.ecommerce.dto.NewUserDTO;
 import com.ignacio.rudyk.generic.ecommerce.enumerate.RoleEnum;
 import com.ignacio.rudyk.generic.ecommerce.enumerate.UserStateEnum;
-import com.ignacio.rudyk.generic.ecommerce.repository.entities.Password;
-import com.ignacio.rudyk.generic.ecommerce.repository.entities.User;
-import com.ignacio.rudyk.generic.ecommerce.repository.entities.UserContact;
+import com.ignacio.rudyk.generic.ecommerce.exception.EcommerceException;
+import com.ignacio.rudyk.generic.ecommerce.repository.entity.Password;
+import com.ignacio.rudyk.generic.ecommerce.repository.entity.User;
+import com.ignacio.rudyk.generic.ecommerce.repository.entity.UserContact;
 import com.ignacio.rudyk.generic.ecommerce.service.IRoleService;
 import com.ignacio.rudyk.generic.ecommerce.service.IUserService;
 import com.ignacio.rudyk.generic.ecommerce.service.IUserStateService;
@@ -34,7 +35,6 @@ public class UserService implements IUserService {
 
     @Transactional
     public void createUser(NewUserDTO newUserDTO) {
-        try {
             User newUser = new User();
             newUser.setPassword(generatePassword(newUserDTO.password()));
             newUser.setRoleId(roleService.findByCode(RoleEnum.USER.getCode()).getId());
@@ -44,15 +44,17 @@ public class UserService implements IUserService {
             newUser.setCreatedAt(new Date());
             newUser.setUserState(userStateService.findByCode(UserStateEnum.ACTIVO.getCode()));
             newUser.setBithday(newUserDTO.bithday());
-
-        } catch (Exception e) {
-            LOGGER.error("Hubo un error al crear el usuario - msg: {}", e.getMessage());
-        }
     }
 
-    private Password generatePassword(String password) throws NoSuchAlgorithmException {
+    private Password generatePassword(String password) {
         String salt = CryptographyUtil.generateSalt();
-        String  passwordStr = CryptographyUtil.encrypt(password, salt);
+        String  passwordStr;
+        try {
+            passwordStr = CryptographyUtil.encrypt(password, salt);
+        } catch (Exception e) {
+            LOGGER.error("Error al encriptar la contraseña: {}", e.getMessage(), e);
+            throw new EcommerceException("Error al generar la contraseña");
+        }
         return new Password(passwordStr, salt);
     }
 

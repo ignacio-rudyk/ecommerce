@@ -1,10 +1,10 @@
-package com.ignacio.rudyk.generic.ecommerce.repository.entities;
+package com.ignacio.rudyk.generic.ecommerce.repository.entity;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_state")
-public class UserState {
+@Table(name = "order_state")
+public class OrderState {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class UserState {
     @Column(name = "description")
     private String description;
 
-    public UserState() {
+    public OrderState() {
     }
 
     public Long getId() {
@@ -64,5 +64,4 @@ public class UserState {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }

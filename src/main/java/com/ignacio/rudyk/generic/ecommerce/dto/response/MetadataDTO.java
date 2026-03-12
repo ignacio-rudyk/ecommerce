@@ -1,7 +1,6 @@
 package com.ignacio.rudyk.generic.ecommerce.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.http.HttpStatus;
 
 public class MetadataDTO {
 
@@ -12,12 +11,16 @@ public class MetadataDTO {
     private String method;
 
     @JsonProperty("code")
-    private String code;
+    private int code;
 
-    public MetadataDTO(String path, String method, HttpStatus httpStatus) {
+    public MetadataDTO(String path, String method, int code) {
         this.path = path;
         this.method = method;
-        this.code = Integer.toString(httpStatus.value());
+        this.code = code;
+    }
+
+    public MetadataDTO() {
+        this(null, null, 0);
     }
 
     public String getPath() {
@@ -36,11 +39,11 @@ public class MetadataDTO {
         this.method = method;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

@@ -1,6 +1,6 @@
 package com.ignacio.rudyk.generic.ecommerce.repository;
 
-import com.ignacio.rudyk.generic.ecommerce.repository.entities.Role;
+import com.ignacio.rudyk.generic.ecommerce.repository.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,10 @@
-package com.ignacio.rudyk.generic.ecommerce.repository.entities;
+package com.ignacio.rudyk.generic.ecommerce.repository.entity;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "payment_state")
+public class PaymentState {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,16 +16,13 @@ public class Role {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "description")
     private String description;
 
-    public Role() {
-    }
-
-    public Role(String code, String name, String description) {
-        this.code = code;
-        this.name = name;
-        this.description = description;
+    public PaymentState() {
     }
 
     public Long getId() {
@@ -50,6 +47,14 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {

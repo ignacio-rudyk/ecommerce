@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class ErrorDTO {
 
     @JsonProperty("code")
-    private String code;
+    private int code;
 
     @JsonProperty("msg")
     private String msg;
@@ -15,11 +15,25 @@ public class ErrorDTO {
     @JsonProperty("timestamp")
     private LocalDateTime timestamp;
 
-    public String getCode() {
+    public ErrorDTO(int code, String msg, LocalDateTime timestamp) {
+        this.code = code;
+        this.msg = msg;
+        this.timestamp = timestamp;
+    }
+
+    public ErrorDTO(int code, String msg) {
+        this(code, msg, LocalDateTime.now());
+    }
+
+    public ErrorDTO() {
+        this(0, null, LocalDateTime.now());
+    }
+
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

@@ -1,7 +1,8 @@
 package com.ignacio.rudyk.generic.ecommerce.service.implementation;
 
+import com.ignacio.rudyk.generic.ecommerce.exception.EcommerceException;
 import com.ignacio.rudyk.generic.ecommerce.repository.IRoleRepository;
-import com.ignacio.rudyk.generic.ecommerce.repository.entities.Role;
+import com.ignacio.rudyk.generic.ecommerce.repository.entity.Role;
 import com.ignacio.rudyk.generic.ecommerce.service.IRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +22,10 @@ public class RoleService implements IRoleService {
     @Override
     public Role findByCode(String code) {
         try {
-            roleRepository.findByCode(code);
+            return roleRepository.findByCode(code);
         } catch (Exception e) {
             LOGGER.error("Hubo un error al buscar el role - code: {} - msg: {}", code, e.getMessage());
+            throw new EcommerceException();
         }
     }
 

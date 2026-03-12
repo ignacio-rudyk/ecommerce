@@ -3,7 +3,10 @@ package com.ignacio.rudyk.generic.ecommerce.controller;
 import com.ignacio.rudyk.generic.ecommerce.dto.NewUserDTO;
 import com.ignacio.rudyk.generic.ecommerce.dto.response.ResponseDTO;
 import com.ignacio.rudyk.generic.ecommerce.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ignacio.rudyk.generic.ecommerce.util.HttpUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,18 +16,20 @@ public class UserController {
 
     private IUserService userService;
 
-    public UserController(@Autowired IUserService userService) {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 
     @PostMapping("/create-user")
-    private ResponseEntity<ResponseDTO> createUser(@RequestBody NewUserDTO newUser) {
+    private ResponseEntity<ResponseDTO> createUser(@RequestBody NewUserDTO newUser, HttpServletRequest httpRequest) {
         userService.createUser(newUser);
-        return ResponseEntity.ok(new ResponseDTO());
+        return HttpUtil.isSucceful2xxResponse(httpRequest, null);
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<ResponseDTO> getUser(){
+    private ResponseEntity<ResponseDTO> getUser() {
         return ResponseEntity.ok(new ResponseDTO());
     }
 

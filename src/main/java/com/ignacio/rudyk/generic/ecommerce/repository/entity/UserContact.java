@@ -1,4 +1,4 @@
-package com.ignacio.rudyk.generic.ecommerce.repository.entities;
+package com.ignacio.rudyk.generic.ecommerce.repository.entity;
 
 import jakarta.persistence.*;
 

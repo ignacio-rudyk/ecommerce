@@ -1,7 +1,8 @@
 package com.ignacio.rudyk.generic.ecommerce.service.implementation;
 
+import com.ignacio.rudyk.generic.ecommerce.exception.EcommerceException;
 import com.ignacio.rudyk.generic.ecommerce.repository.IUserStateRepository;
-import com.ignacio.rudyk.generic.ecommerce.repository.entities.UserState;
+import com.ignacio.rudyk.generic.ecommerce.repository.entity.UserState;
 import com.ignacio.rudyk.generic.ecommerce.service.IUserStateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +22,10 @@ public class UserStateService implements IUserStateService {
     @Override
     public UserState findByCode(String code) {
         try {
-            userStateRepository.findByCode(code);
+            return userStateRepository.findByCode(code);
         } catch (Exception e) {
             LOGGER.error("Hubo un error al buscar el el estado del usuario - code: {} - msg: {}", code, e.getMessage());
+            throw new EcommerceException();
         }
     }
 

@@ -1,6 +1,6 @@
 package com.ignacio.rudyk.generic.ecommerce.service;
 
-import com.ignacio.rudyk.generic.ecommerce.repository.entities.Role;
+import com.ignacio.rudyk.generic.ecommerce.repository.entity.Role;
 
 public interface IRoleService {
 
