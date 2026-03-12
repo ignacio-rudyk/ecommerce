@@ -135,4 +135,4 @@ La aplicación levanta en `http://localhost:8080`.
 ## 👤 Autor
 
 **Ignacio Nahuel Rudyk**  
-[LinkedIn](https://www.linkedin.com/in/ignacio-rudyk](https://www.linkedin.com/in/ignacio-nahuel-rudyk-466936196/)) · [GitHub](https://github.com/ignacio-rudyk)
+[LinkedIn](https://www.linkedin.com/in/ignacio-nahuel-rudyk-466936196/) · [GitHub](https://github.com/ignacio-rudyk)
