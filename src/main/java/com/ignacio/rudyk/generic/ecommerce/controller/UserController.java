@@ -41,6 +41,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     private ResponseEntity<ResponseDTO> deleteUser(@PathVariable Long id, HttpServletRequest httpRequest) {
+        userService.deleteUser(id);
         return HttpUtil.isSucceful2xxResponse(httpRequest, null);
     }
 

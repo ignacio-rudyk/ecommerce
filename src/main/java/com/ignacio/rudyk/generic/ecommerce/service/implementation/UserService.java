@@ -85,6 +85,16 @@ public class UserService implements IUserService {
         userRepository.save(user);
     }
 
+    @Override
+    public void deleteUser(Long id) {
+        if(id == null)
+            throw new UserNotFoundException();
+        Optional<User> opUser = userRepository.findById(id);
+        if(opUser.isEmpty())
+            throw new UserNotFoundException();
+        this.userRepository.delete(opUser.get());
+    }
+
 
     private Password generatePassword(String password) {
         String salt = CryptographyUtil.generateSalt();
