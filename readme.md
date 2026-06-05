@@ -147,7 +147,8 @@ La aplicación levanta en `http://localhost:8080`.
 | Método | Endpoint                  | Descripción               |
 |--------|---------------------------|---------------------------|
 | POST   | `/product/create-product` | Crear un nuevo producto   |
-| GET    | `/product/{id}}`          | Obtener un producto por ID |
+| GET    | `/product/{id}`          | Obtener un producto por ID |
+| GET    | `/product`               | Obtener una lista de productos con paginado |
 | PUT    | `/product/{id}`           | Actualizar los datos de un producto |
 | DELETE | `/product/{id}`           | Eliminar un producto      |
 

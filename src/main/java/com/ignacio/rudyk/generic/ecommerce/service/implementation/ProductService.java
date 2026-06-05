@@ -2,6 +2,8 @@ package com.ignacio.rudyk.generic.ecommerce.service.implementation;
 
 import com.ignacio.rudyk.generic.ecommerce.dto.ProductDTO;
 import com.ignacio.rudyk.generic.ecommerce.dto.ProductRequestDTO;
+import com.ignacio.rudyk.generic.ecommerce.dto.response.PaginatedListDTO;
+import com.ignacio.rudyk.generic.ecommerce.dto.response.PaginationDTO;
 import com.ignacio.rudyk.generic.ecommerce.exception.BadRequestException;
 import com.ignacio.rudyk.generic.ecommerce.exception.DataNotFoundException;
 import com.ignacio.rudyk.generic.ecommerce.mapper.IProductMapper;
@@ -10,6 +12,8 @@ import com.ignacio.rudyk.generic.ecommerce.repository.IProductRepository;
 import com.ignacio.rudyk.generic.ecommerce.repository.entity.*;
 import com.ignacio.rudyk.generic.ecommerce.repository.ICategoryRepository;
 import com.ignacio.rudyk.generic.ecommerce.service.IProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -50,6 +54,20 @@ public class ProductService implements IProductService {
         product.setCategory(getCategory(newProduct.categoryId()));
         product.setFileId(createFile(newProduct.base64Image(), newProduct.urlImage()));
         productRepository.save(product);
+    }
+
+    @Override
+    public PaginatedListDTO<ProductDTO> findAll(Pageable pageable) {
+        Page<Product> productPage = productRepository.findAll(pageable);
+        List<ProductDTO> products = productPage.getContent().stream()
+                .map(productMapper::toDTO)
+                .toList();
+        PaginationDTO pagination = new PaginationDTO(
+                productPage.getNumber(),
+                productPage.getSize(),
+                productPage.getTotalElements(),
+                productPage.getTotalPages());
+        return new PaginatedListDTO<>(products, pagination);
     }
 
     @Override
