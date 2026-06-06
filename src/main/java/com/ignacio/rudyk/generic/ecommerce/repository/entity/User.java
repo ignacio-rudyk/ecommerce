@@ -39,8 +39,8 @@ public class User {
     @JoinColumn(name = "user_state_id")
     private UserState userState;
 
-    @Column(name = "bithday")
-    private Date bithday;
+    @Column(name = "birthday")
+    private Date birthday;
 
     public User() {
     }
@@ -117,11 +117,11 @@ public class User {
         this.userState = userState;
     }
 
-    public Date getBithday() {
-        return bithday;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBithday(Date bithday) {
-        this.bithday = bithday;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }

@@ -2,12 +2,10 @@ package com.ignacio.rudyk.generic.ecommerce.service.implementation;
 
 import com.ignacio.rudyk.generic.ecommerce.dto.CartDTO;
 import com.ignacio.rudyk.generic.ecommerce.dto.CartProdutcDTO;
-import com.ignacio.rudyk.generic.ecommerce.dto.ProductDTO;
 import com.ignacio.rudyk.generic.ecommerce.exception.BadRequestException;
 import com.ignacio.rudyk.generic.ecommerce.exception.DataNotFoundException;
 import com.ignacio.rudyk.generic.ecommerce.mapper.ICartMapper;
 import com.ignacio.rudyk.generic.ecommerce.mapper.ICartProductMapper;
-import com.ignacio.rudyk.generic.ecommerce.mapper.IProductMapper;
 import com.ignacio.rudyk.generic.ecommerce.repository.ICartProductRepository;
 import com.ignacio.rudyk.generic.ecommerce.repository.ICartRepository;
 import com.ignacio.rudyk.generic.ecommerce.repository.IProductRepository;
@@ -15,7 +13,6 @@ import com.ignacio.rudyk.generic.ecommerce.repository.entity.Cart;
 import com.ignacio.rudyk.generic.ecommerce.repository.entity.CartProduct;
 import com.ignacio.rudyk.generic.ecommerce.repository.entity.Product;
 import com.ignacio.rudyk.generic.ecommerce.service.ICartService;
-import com.ignacio.rudyk.generic.ecommerce.service.IProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

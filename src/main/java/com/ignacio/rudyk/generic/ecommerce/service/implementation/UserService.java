@@ -63,7 +63,7 @@ public class UserService implements IUserService {
         newUser.setUserContact(generateUserContact(newUserDTO));
         newUser.setCreatedAt(new Date());
         newUser.setUserState(userStateService.findByCode(UserStateEnum.ACTIVO.getCode()));
-        newUser.setBithday(newUserDTO.bithday());
+        newUser.setBirthday(newUserDTO.birthday());
         User user = userRepository.save(newUser);
         cartService.createCart(user.getId());
     }
@@ -90,7 +90,7 @@ public class UserService implements IUserService {
         user.getUserContact().setEmail(newUserDTO.email());
         user.getUserContact().setPhoneNumber(newUserDTO.phone());
         user.getUserContact().setIndicative(newUserDTO.indicative());
-        user.setBithday(newUserDTO.bithday());
+        user.setBirthday(newUserDTO.birthday());
         userRepository.save(user);
     }
 
