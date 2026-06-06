@@ -46,7 +46,7 @@ public class ProductController {
         return HttpUtil.isSucceful2xxResponse(httpServletRequest, productService.findAll(pageable));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<ResponseDTO> updateProduct(HttpServletRequest httpServletRequest,
             @RequestBody ProductRequestDTO updateProduct) {
         LOGGER.info("Llamado al servicio PUT /update-product - body: {}", updateProduct);

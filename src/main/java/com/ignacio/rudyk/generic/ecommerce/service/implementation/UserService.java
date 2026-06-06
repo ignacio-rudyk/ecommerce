@@ -94,6 +94,7 @@ public class UserService implements IUserService {
         userRepository.save(user);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long userId) {
         if(userId == null)

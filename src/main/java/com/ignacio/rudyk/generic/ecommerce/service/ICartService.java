@@ -6,7 +6,7 @@ public interface ICartService {
 
     void createCart(Long userId);
 
-    void deleteCart(Long cartId);
+    void deleteCart(Long userId);
 
     CartDTO getCart(Long cartId);
 

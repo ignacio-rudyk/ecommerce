@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.sql.rowset.serial.SerialBlob;
+import jakarta.transaction.Transactional;
 import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -44,6 +45,7 @@ public class ProductService implements IProductService {
         this.productMapper = productMapper;
     }
 
+    @Transactional
     @Override
     public void createProduct(ProductRequestDTO newProduct) {
         Product product = new Product();
@@ -104,6 +106,7 @@ public class ProductService implements IProductService {
         Optional<Product> opProduct = productRepository.findById(productId);
         if(opProduct.isEmpty())
             throw new DataNotFoundException("Producto no encontrado");
+        fileRepository.deleteById(opProduct.get().getFileId());
         productRepository.delete(opProduct.get());
     }
 
@@ -111,7 +114,10 @@ public class ProductService implements IProductService {
         if(categoryId == null)
             return null;
         Optional<Category> opCategory = categoryRepository.findById(categoryId);
-        return opCategory.orElse(null);
+        if(opCategory.isEmpty()) {
+            throw new DataNotFoundException("Categoria no encontrada");
+        }
+        return opCategory.get();
     }
 
     private Long createFile(String base64, String urlImage) {
@@ -121,7 +127,7 @@ public class ProductService implements IProductService {
             try {
                 blob = new SerialBlob(bytes);
             } catch (SQLException e) {
-                throw new BadRequestException("El dato archivo no corresponde a un formate valido");
+                throw new BadRequestException("El dato archivo no corresponde a un formato valido");
             }
         }
         File file = new File(blob, urlImage);

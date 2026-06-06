@@ -52,9 +52,9 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public void deleteCart(Long cartId) {
-        if(cartId != null) {
-            Optional<Cart> opCart = cartRepository.findById(cartId);
+    public void deleteCart(Long userId) {
+        if(userId != null) {
+            Optional<Cart> opCart = cartRepository.findByUserId(userId);
             if(opCart.isPresent()) {
                 cartRepository.delete(opCart.get());
             } else {

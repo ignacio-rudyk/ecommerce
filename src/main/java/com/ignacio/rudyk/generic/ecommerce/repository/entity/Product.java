@@ -24,7 +24,7 @@ public class Product {
     @JoinColumn(name = "price_id")
     private Price price;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
