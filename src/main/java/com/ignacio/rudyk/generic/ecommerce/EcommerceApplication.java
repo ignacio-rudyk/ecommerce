@@ -11,4 +11,3 @@ public class EcommerceApplication {
 	}
 
 }
-//TODO envio de email con templates
