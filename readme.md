@@ -28,6 +28,7 @@ El proyecto sigue una arquitectura en capas:
 ---
 
 ## 📦 Estructura del proyecto
+
 ```
 src/main/java/com/ignacio/rudyk/generic/ecommerce/
 ├── controller/
@@ -60,11 +61,14 @@ El proyecto incluye las siguientes entidades:
 - **Category** — categorías de productos
 - **Cart** — carrito de compras del usuario
 - **CartProduct** — productos dentro de un carrito
-- **Orders** — órdenes de compra
+- **Order** — órdenes de compra
 - **OrderState** — estados posibles de una orden
 - **Payment** — pagos realizados
 - **PaymentState** — estados posibles de un pago
 - **PaymentMethod** — métodos de pago disponibles
+- **Price** — precio del producto
+- **OrderItem** — registro del item de la orden de compra
+- **EmailTemplate** — plantilla de email
 
 ---
 
@@ -77,6 +81,7 @@ El proyecto incluye las siguientes entidades:
 - PostgreSQL 16
 
 ### 1. Clonar el repositorio
+
 ```bash
 git clone https://github.com/ignacio-rudyk/generic-ecommerce.git
 cd generic-ecommerce
@@ -85,6 +90,7 @@ cd generic-ecommerce
 ### 2. Crear la base de datos y el usuario en PostgreSQL
 
 Ejecutar los siguientes comandos en psql como superusuario:
+
 ```sql
 CREATE DATABASE generic_ecommerce;
 CREATE USER generic_ecommerce_user WITH PASSWORD 'tu_password';
@@ -100,6 +106,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO generic_ecom
 ### 3. Configurar application.properties
 
 Editar el archivo `src/main/resources/application.properties`:
+
 ```properties
 spring.application.name=ecommerce
 
@@ -114,6 +121,7 @@ spring.jpa.hibernate.ddl-auto=update
 > ⚠️ Si tenés variables de entorno definidas en el sistema (`SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD`), estas tienen mayor prioridad que el `application.properties` y pueden pisar la configuración. Verificá que no estén definidas antes de correr la aplicación.
 
 ### 4. Compilar y ejecutar
+
 ```bash
 mvn clean install
 mvn spring-boot:run
@@ -127,30 +135,35 @@ La aplicación levanta en `http://localhost:8080`.
 
 ### API User
 
+
 | Método | Endpoint            | Descripción                  |
-|--------|---------------------|------------------------------|
-| POST | `/user/create-user` | Crear un nuevo usuario       |
-| GET | `/user/{id}`        | Obtener un usuario por ID    |
-| PUT | `/user/update-user` | Actualizar un usuario por ID |
+| ------ | ------------------- | ---------------------------- |
+| POST   | `/user/create-user` | Crear un nuevo usuario       |
+| GET    | `/user/{id}`        | Obtener un usuario por ID    |
+| PUT    | `/user/update-user` | Actualizar un usuario por ID |
 | DELETE | `/user/{id}`        | Eliminar un usuario por ID   |
+
 
 ### API Cart
 
-| Método | Endpoint                     | Descripción                          |
-|--------|------------------------------|--------------------------------------|
-| GET    | `/cart/{userId}`             | Obtener un carro por ID              |
-| POST   | `/cart/{cartId}/{productId}` | Agregar un producto al carro         |
+
+| Método | Endpoint                     | Descripción                    |
+| ------ | ---------------------------- | ------------------------------ |
+| GET    | `/cart/{userId}`             | Obtener un carro por ID        |
+| POST   | `/cart/{cartId}/{productId}` | Agregar un producto al carro   |
 | DELETE | `/cart/{cartId}/{productId}` | Eliminar un producto del carro |
+
 
 ### API Product
 
-| Método | Endpoint                  | Descripción               |
-|--------|---------------------------|---------------------------|
-| POST   | `/product/create-product` | Crear un nuevo producto   |
-| GET    | `/product/{id}`          | Obtener un producto por ID |
-| GET    | `/product`               | Obtener una lista de productos con paginado |
-| PUT    | `/product/{id}`           | Actualizar los datos de un producto |
-| DELETE | `/product/{id}`           | Eliminar un producto      |
+
+| Método | Endpoint                  | Descripción                                 |
+| ------ | ------------------------- | ------------------------------------------- |
+| POST   | `/product/create-product` | Crear un nuevo producto                     |
+| GET    | `/product/{id}`           | Obtener un producto por ID                  |
+| GET    | `/product`                | Obtener una lista de productos con paginado |
+| PUT    | `/product/{id}`           | Actualizar los datos de un producto         |
+| DELETE | `/product/{id}`           | Eliminar un producto                        |
 
 
 ---
