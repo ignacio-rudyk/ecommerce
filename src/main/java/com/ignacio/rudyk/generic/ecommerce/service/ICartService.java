@@ -8,6 +8,8 @@ public interface ICartService {
 
     void deleteCart(Long userId);
 
+    void emptyCart(Long cartId);
+
     CartDTO getCart(Long cartId);
 
     void addProduct(Long cartId, Long productId);

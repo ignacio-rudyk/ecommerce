@@ -57,6 +57,7 @@ public class OrderService implements IOrderService {
         List<OrderItem> items = orderItemService.saveItems(order.getId(), cart.products());
         order.setTotalAmount(calculateTotalAmount(items));
         orderRepository.save(order);
+        cartService.emptyCart(cartId);
     }
 
     @Override

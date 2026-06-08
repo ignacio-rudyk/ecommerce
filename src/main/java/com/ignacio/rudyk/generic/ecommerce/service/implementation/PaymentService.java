@@ -53,17 +53,17 @@ public class PaymentService implements IPaymentService {
 
     @Override
     public void refundPayment(Long paymentId) {
-
+        //TODO
     }
 
     @Override
     public PaymentDTO getPayment(Long paymentId) {
-        return null;
+        return null;//TODO
     }
 
     @Override
     public List<PaymentDTO> getPaymentsByUserId(Long paymentId) {
-        return List.of();
+        return List.of();//TODO
     }
 
 }

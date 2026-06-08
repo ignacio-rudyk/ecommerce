@@ -17,4 +17,6 @@ public interface ICartProductRepository extends JpaRepository<CartProduct, Long>
     @Query("SELECT cp FROM CartProduct cp JOIN FETCH cp.product WHERE cp.cartId = :cartId")
     List<CartProduct> findCartProductByCartId(@Param("cartId") Long cartId);
 
+    void deleteByCartId(Long cartId);
+
 }

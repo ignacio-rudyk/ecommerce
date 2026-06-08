@@ -1,7 +1,7 @@
 package com.ignacio.rudyk.generic.ecommerce.service.implementation;
 
 import com.ignacio.rudyk.generic.ecommerce.dto.CartDTO;
-import com.ignacio.rudyk.generic.ecommerce.dto.CartProdutcDTO;
+import com.ignacio.rudyk.generic.ecommerce.dto.CartProductDTO;
 import com.ignacio.rudyk.generic.ecommerce.exception.BadRequestException;
 import com.ignacio.rudyk.generic.ecommerce.exception.DataNotFoundException;
 import com.ignacio.rudyk.generic.ecommerce.mapper.ICartMapper;
@@ -16,6 +16,8 @@ import com.ignacio.rudyk.generic.ecommerce.service.ICartService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +68,26 @@ public class CartService implements ICartService {
     }
 
     @Override
+    public void emptyCart(Long cartId) {
+        if(cartId == null) {
+            throw new BadRequestException("El ID del carro es null");
+        } else {
+            Optional<Cart> opCart = cartRepository.findById(cartId);
+            if (opCart.isPresent()) {
+                cartProductRepository.deleteByCartId(cartId);
+                Cart cart = opCart.get();
+                cart.setSubTotalAmount(BigDecimal.ZERO);
+                cart.setTotalAmount(BigDecimal.ZERO);
+                cart.setLastModification(new Date());
+                cartRepository.save(cart);
+            } else {
+                throw new DataNotFoundException("Carro no encontrado");
+            }
+        }
+
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public CartDTO getCart(Long id) {
         CartDTO cartDTO = cartMapper.toDTO(getEmptyCartById(id));
@@ -75,6 +97,7 @@ public class CartService implements ICartService {
     }
 
     @Override
+    @Transactional
     public void addProduct(Long cartId, Long productId) {
         CartProduct cartProduct = getCartProductByCartIdAndProductId(cartId, productId);
         if(cartProduct == null) {
@@ -87,9 +110,11 @@ public class CartService implements ICartService {
             cartProduct.setQuantity(cartProduct.getQuantity() + 1L);
         }
         cartProductRepository.save(cartProduct);
+        updateAmountCart(cartId, cartProduct.getProduct(), true);
     }
-
+    
     @Override
+    @Transactional
     public void deleteProduct(Long cartId, Long productId) {
         CartProduct cartProduct = getCartProductByCartIdAndProductId(cartId, productId);
         if(cartProduct == null) {
@@ -100,6 +125,27 @@ public class CartService implements ICartService {
             cartProduct.setQuantity(cartProduct.getQuantity() - 1L);
             cartProductRepository.save(cartProduct);
         }
+        updateAmountCart(cartId, cartProduct.getProduct(), false);
+    }
+    
+    private void updateAmountCart(Long cartId, Product product, boolean isAdd) {
+        Optional<Cart> opCart = cartRepository.findById(cartId);
+        if (opCart.isPresent()) {
+            Cart cart = opCart.get();
+            if(isAdd) {
+                cart.setTotalAmount(cart.getTotalAmount().add(product.getPrice().getPrice()));
+                cart.setSubTotalAmount(cart.getSubTotalAmount().add(product.getPrice().getPrice()));
+            } else {
+                if(cart.getTotalAmount().compareTo(product.getPrice().getPrice()) >= 0) {
+                    cart.setTotalAmount(cart.getTotalAmount().subtract(product.getPrice().getPrice()));
+                    cart.setSubTotalAmount(cart.getSubTotalAmount().subtract(product.getPrice().getPrice()));
+                }
+            }
+            cart.setLastModification(new Date());
+            cartRepository.save(cart);
+        } else {
+            throw new DataNotFoundException("Carro no encontrado");
+        }
     }
 
     private Cart getEmptyCartById(Long id) {
@@ -109,7 +155,7 @@ public class CartService implements ICartService {
         return opCart.orElse(null);
     }
 
-    private List<CartProdutcDTO> findProductsFromCart(Long cartId) {
+    private List<CartProductDTO> findProductsFromCart(Long cartId) {
         return cartProductRepository.findCartProductByCartId(cartId).stream()
                 .map(p -> cartProductMapper.toDTO(p))
                 .toList();

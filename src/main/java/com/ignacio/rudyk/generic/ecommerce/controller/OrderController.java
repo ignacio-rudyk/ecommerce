@@ -17,6 +17,10 @@ public class OrderController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
+    public OrderController(IOrderService orderService) {
+        this.orderService = orderService;
+    }
+
     @PostMapping("/create-order/{cartId}")
     public ResponseEntity<ResponseDTO> createOrder(HttpServletRequest httpServletRequest, @PathVariable Long cartId) {
         LOGGER.info("Llamado al servicio /create-order - cart-id: {}", cartId);

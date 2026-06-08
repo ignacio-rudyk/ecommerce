@@ -8,10 +8,10 @@ public record CartDTO(Long id,
                       BigDecimal totalAmount,
                       BigDecimal subTotalAmount,
                       Date lastModification,
-                      List<CartProdutcDTO> products,
+                      List<CartProductDTO> products,
                       Long userId) {
 
-    public CartDTO withProducts(List<CartProdutcDTO> products) {
+    public CartDTO withProducts(List<CartProductDTO> products) {
         return new CartDTO(id, totalAmount, subTotalAmount, lastModification, products, userId);
     }
 

@@ -1,6 +1,6 @@
 package com.ignacio.rudyk.generic.ecommerce.service.implementation;
 
-import com.ignacio.rudyk.generic.ecommerce.dto.CartProdutcDTO;
+import com.ignacio.rudyk.generic.ecommerce.dto.CartProductDTO;
 import com.ignacio.rudyk.generic.ecommerce.dto.OrderItemDTO;
 import com.ignacio.rudyk.generic.ecommerce.exception.BadRequestException;
 import com.ignacio.rudyk.generic.ecommerce.exception.DataNotFoundException;
@@ -28,18 +28,18 @@ public class OrderItemService implements IOrderItemService {
     }
 
     @Override
-    public List<OrderItem> saveItems(Long orderId, List<CartProdutcDTO> products) {
+    public List<OrderItem> saveItems(Long orderId, List<CartProductDTO> products) {
         List<OrderItem> items = new ArrayList<>();
         if(products.isEmpty())
             throw new BadRequestException("La lista de productos esta vacia");
-        for(CartProdutcDTO cartProdutc : products) {
+        for(CartProductDTO cartProduct : products) {
             OrderItem orderItem = new OrderItem();
-            orderItem.setProductId(cartProdutc.product().id());
+            orderItem.setProductId(cartProduct.product().id());
             orderItem.setOrderId(orderId);
-            orderItem.setProductTitle(cartProdutc.product().title());
-            orderItem.setUnitPrice(cartProdutc.product().price().price());
-            orderItem.setSubTotal(calculateSubtotalItem(cartProdutc.product().price().price(), cartProdutc.quantity()));
-            orderItem.setQuantity(cartProdutc.quantity());
+            orderItem.setProductTitle(cartProduct.product().title());
+            orderItem.setUnitPrice(cartProduct.product().price().price());
+            orderItem.setSubTotal(calculateSubtotalItem(cartProduct.product().price().price(), cartProduct.quantity()));
+            orderItem.setQuantity(cartProduct.quantity());
             items.add(orderItem);
         }
         orderItemRepository.saveAll(items);
