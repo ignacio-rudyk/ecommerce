@@ -14,6 +14,6 @@ public interface IPaymentService {
 
     PaymentDTO getPayment(Long paymentId);
 
-    List<PaymentDTO> getPaymentsByUserId(Long paymentId);
+    List<PaymentDTO> getPaymentsByUserId(Long userId);
 
 }

@@ -8,4 +8,6 @@ public interface IOrderService {
 
     OrderDTO getOrder(Long orderId);
 
+    void updateOrderState(Long orderId, String orderStateCode);
+
 }

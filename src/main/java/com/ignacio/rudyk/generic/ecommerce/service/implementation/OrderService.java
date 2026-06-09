@@ -52,7 +52,7 @@ public class OrderService implements IOrderService {
         order.setCreatedAt(new Date());
         order.setLastModification(new Date());
         order.setUserId(cart.userId());
-        order.setOrderState(orderStateService.findByCode(OrderStateEnum.CONFIRMADO.getCode()));
+        order.setOrderState(orderStateService.findByCode(OrderStateEnum.EN_PROCESO.getCode()));
         order = orderRepository.save(order);
         List<OrderItem> items = orderItemService.saveItems(order.getId(), cart.products());
         order.setTotalAmount(calculateTotalAmount(items));
@@ -62,12 +62,16 @@ public class OrderService implements IOrderService {
 
     @Override
     public OrderDTO getOrder(Long orderId) {
-        Optional<Order> opOrder = orderRepository.findById(orderId);
-        if(opOrder.isEmpty())
-            throw new DataNotFoundException("Orden no encontrada");
-        OrderDTO order = orderMapper.toDTO(opOrder.get());
+        OrderDTO order = orderMapper.toDTO(findById(orderId));
         order = order.withItems(orderItemService.getItems(orderId));
         return order;
+    }
+
+    @Override
+    public void updateOrderState(Long orderId, String orderStateCode) {
+        Order order = findById(orderId);
+        order.setOrderState(orderStateService.findByCode(orderStateCode));
+        orderRepository.save(order);
     }
 
     private BigDecimal calculateTotalAmount(List<OrderItem> items) {
@@ -76,6 +80,13 @@ public class OrderService implements IOrderService {
             totalAmount = orderItem.getSubTotal().add(totalAmount);
         }
         return totalAmount;
+    }
+
+    private Order findById(Long orderId) {
+        Optional<Order> opOrder = orderRepository.findById(orderId);
+        if(opOrder.isEmpty())
+            throw new DataNotFoundException("Orden no encontrada");
+        return opOrder.get();
     }
 
 }

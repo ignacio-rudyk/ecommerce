@@ -37,13 +37,13 @@ public class PaymentController {
     @GetMapping("/by-id/{id}")
     private ResponseEntity<ResponseDTO> getPaymentById(HttpServletRequest httpServletRequest, @PathVariable Long id) {
         LOGGER.info("Llamado al servicio /get-payment-by-id - ID: {}", id);
-        return HttpUtil.isSucceful2xxResponse(httpServletRequest, null);
+        return HttpUtil.isSucceful2xxResponse(httpServletRequest, paymentService.getPayment(id));
     }
 
-    @GetMapping("/by-user/{user-id}")
+    @GetMapping("/by-user-id/{user-id}")
     private ResponseEntity<ResponseDTO> getPaymentByUser(HttpServletRequest httpServletRequest, @PathVariable("user-id") Long userId) {
         LOGGER.info("Llamado al servicio /get-payment-by-user - userId: {}", userId);
-        return HttpUtil.isSucceful2xxResponse(httpServletRequest, null);
+        return HttpUtil.isSucceful2xxResponse(httpServletRequest, paymentService.getPaymentsByUserId(userId));
     }
 
 }

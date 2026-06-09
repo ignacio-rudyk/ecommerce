@@ -7,13 +7,10 @@ import com.ignacio.rudyk.generic.ecommerce.repository.entity.User;
 import com.ignacio.rudyk.generic.ecommerce.repository.entity.UserContact;
 import com.ignacio.rudyk.generic.ecommerce.repository.entity.UserState;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface IUserMapper {
 
-    @Mapping(source = "userContact", target = "userContactDTO")
-    @Mapping(source = "userState", target = "userStateDTO")
     UserDTO toDTO(User user);
 
     UserContactDTO toDTO(UserContact userContact);
