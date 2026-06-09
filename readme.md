@@ -1,6 +1,6 @@
 # 🛒 Generic Ecommerce
 
-API REST de un ecommerce desarrollado con Java y Spring Boot, orientado a demostrar buenas prácticas de desarrollo backend. Proyecto de práctica para portfolio.
+API REST de un ecommerce desarrollado con Java y Spring Boot, orientado a demostrar buenas prácticas de desarrollo backend. Proyecto de portfolio.
 
 ---
 
@@ -165,6 +165,9 @@ La aplicación levanta en `http://localhost:8080`.
 | PUT    | `/product/{id}`           | Actualizar los datos de un producto         |
 | DELETE | `/product/{id}`           | Eliminar un producto                        |
 
+
+## 🚀 Escalabilidad
+Al igual que se determinó aplicar una arquitectura de monolito en el sistema por ser un proyecto de portfolio, el procesamiento de órdenes, pagos y emails se resolvieron de forma sincrónica para mantener consistencia fuerte en esta versión. En un escenario de mayor escala, migraría este flujo a un modelo asincrónico utilizando mensajería como Apache Kafka, incorporando idempotencia y manejo de reintentos. Si bien puede que no se encuentren todas las entidades que en el mundo real existen este sistema puede seguir agregando nuevas entidades y funcionalidades.
 
 ---
 
