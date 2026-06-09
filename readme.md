@@ -133,6 +133,40 @@ La aplicación levanta en `http://localhost:8080`.
 
 ## 🔁 API Rest
 
+### API Cart
+
+| Método | Endpoint                     | Descripción                    |
+| ------ | ---------------------------- | ------------------------------ |
+| GET    | `/cart/{userId}`             | Obtener un carro por ID        |
+| POST   | `/cart/{cartId}/{productId}` | Agregar un producto al carro   |
+| DELETE | `/cart/{cartId}/{productId}` | Eliminar un producto del carro |
+
+### API Order
+
+| Método | Endpoint                       | Descripción                   |
+| ------ | ------------------------------ | ----------------------------- |
+| POST   | `/order/create-order/{cartId}` | Generar orden de compra       |
+| GET    | `/order/{orderId}`             | Consultar una orden de compra |
+
+### API Payment
+
+| Método | Endpoint                        | Descripción                        |
+| ------ | ------------------------------- | ---------------------------------- |
+| POST   | `/payment/create-payment`       | Generar un nuevo pago              |
+| POST   | `/payment/refund-payment/{id}`  | Reembolsar pago                    |
+| GET    | `/payment/by-id/{id}`           | Consultar un pago por ID           |
+| GET    | `/payment//by-user-id/{user-id}`| Consultar pagos por ID de usuarios |
+
+### API Product
+
+| Método | Endpoint                  | Descripción                                 |
+| ------ | ------------------------- | ------------------------------------------- |
+| POST   | `/product/create-product` | Crear un nuevo producto                     |
+| GET    | `/product/{id}`           | Obtener un producto por ID                  |
+| GET    | `/product`                | Obtener una lista de productos con paginado |
+| PUT    | `/product/{id}`           | Actualizar los datos de un producto         |
+| DELETE | `/product/{id}`           | Eliminar un producto   
+
 ### API User
 
 
@@ -142,29 +176,16 @@ La aplicación levanta en `http://localhost:8080`.
 | GET    | `/user/{id}`        | Obtener un usuario por ID    |
 | PUT    | `/user/update-user` | Actualizar un usuario por ID |
 | DELETE | `/user/{id}`        | Eliminar un usuario por ID   |
+                     
 
 
-### API Cart
+## Flujo principal del sistema
 
-
-| Método | Endpoint                     | Descripción                    |
-| ------ | ---------------------------- | ------------------------------ |
-| GET    | `/cart/{userId}`             | Obtener un carro por ID        |
-| POST   | `/cart/{cartId}/{productId}` | Agregar un producto al carro   |
-| DELETE | `/cart/{cartId}/{productId}` | Eliminar un producto del carro |
-
-
-### API Product
-
-
-| Método | Endpoint                  | Descripción                                 |
-| ------ | ------------------------- | ------------------------------------------- |
-| POST   | `/product/create-product` | Crear un nuevo producto                     |
-| GET    | `/product/{id}`           | Obtener un producto por ID                  |
-| GET    | `/product`                | Obtener una lista de productos con paginado |
-| PUT    | `/product/{id}`           | Actualizar los datos de un producto         |
-| DELETE | `/product/{id}`           | Eliminar un producto                        |
-
+1. Crear usuario
+2. Crear productos
+3. Agregar productos al carrito
+5. Generar orden de compra
+6. Registrar pago
 
 ## 🚀 Escalabilidad
 Al igual que se determinó aplicar una arquitectura de monolito en el sistema por ser un proyecto de portfolio, el procesamiento de órdenes, pagos y emails se resolvieron de forma sincrónica para mantener consistencia fuerte en esta versión. En un escenario de mayor escala, migraría este flujo a un modelo asincrónico utilizando mensajería como Apache Kafka, incorporando idempotencia y manejo de reintentos. Si bien puede que no se encuentren todas las entidades que en el mundo real existen este sistema puede seguir agregando nuevas entidades y funcionalidades.
